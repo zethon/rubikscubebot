@@ -48,8 +48,6 @@ namespace RubiksCube
             Cubicles.Add(new Cubicle(Face.Down, FaceColor.White, Face.Left, FaceColor.Green));
             Cubicles.Add(new Cubicle(Face.Down, FaceColor.White, Face.Right, FaceColor.Blue));
 
-
-
         }
 
         public List<FaceColor> GetFaceColors(Face f)
@@ -139,33 +137,33 @@ namespace RubiksCube
 
             if (r == Rotation.X)
             {
-                Turn(Face.Right);
-                Turn(Face.Left, false);
+                Turn(Face.Right, bClockwise);
+                Turn(Face.Left,!bClockwise);
 
                 aFace = Face.Front;
-                bFace = Face.Up;
+                bFace = bClockwise ? Face.Up : Face.Down;
                 cFace = Face.Back;
-                dFace = Face.Down;
+                dFace = bClockwise ? Face.Down : Face.Up;
             }
             else if (r == Rotation.Y)
             {
-                Turn(Face.Up);
-                Turn(Face.Down, false);
+                Turn(Face.Up, bClockwise);
+                Turn(Face.Down, !bClockwise);
 
                 aFace = Face.Front;
-                bFace = Face.Left;
+                bFace = bClockwise ? Face.Left : Face.Right;
                 cFace = Face.Back;
-                dFace = Face.Right;
+                dFace = bClockwise ? Face.Right : Face.Left;
             }
             else if (r == Rotation.Z)
             {
-                Turn(Face.Front);
-                Turn(Face.Back, false);
+                Turn(Face.Front, bClockwise);
+                Turn(Face.Back, !bClockwise);
 
                 aFace = Face.Left;
-                bFace = Face.Up;
+                bFace = bClockwise ? Face.Up : Face.Down;
                 cFace = Face.Right;
-                dFace = Face.Down;
+                dFace = bClockwise ? Face.Down : Face.Up;
             }
 
             Cubicle top = Cubicles.Find(x => x.Location.Is(bFace));
@@ -198,7 +196,6 @@ namespace RubiksCube
 
             backTop.Colors[bFace] = frontTopTemp.Colors[aFace];
             backTop.Colors[cFace] = frontTopTemp.Colors[bFace];
-
         }
 
         public void Scramble()
