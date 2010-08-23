@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using RubiksCube;
 
-namespace ConsoleApplication1
+namespace RubiksCube
 {
-    class CubeBoxFormatter
+    public class CubeBoxFormatter
     {
         public Cube Cube = null;
 
@@ -19,7 +19,7 @@ namespace ConsoleApplication1
         {
             string strRet = string.Empty;
 
-            List<FaceColor> face = Cube.GetFaceColors(f);
+            IList<FaceColor> face = Cube.GetFaceColors(f);
 
             strRet = @"+-------+
 | {0} {1} {2} |
@@ -58,12 +58,12 @@ namespace ConsoleApplication1
        +-------+
 ";
 
-            List<FaceColor> top = Cube.GetFaceColors(Face.Up);
-            List<FaceColor> front = Cube.GetFaceColors(Face.Front);
-            List<FaceColor> left = Cube.GetFaceColors(Face.Left);
-            List<FaceColor> right = Cube.GetFaceColors(Face.Right);
-            List<FaceColor> bottom = Cube.GetFaceColors(Face.Down);
-            List<FaceColor> back = Cube.GetFaceColors(Face.Back);
+            IList<FaceColor> top = Cube.GetFaceColors(Face.Up);
+            IList<FaceColor> front = Cube.GetFaceColors(Face.Front);
+            IList<FaceColor> left = Cube.GetFaceColors(Face.Left);
+            IList<FaceColor> right = Cube.GetFaceColors(Face.Right);
+            IList<FaceColor> bottom = Cube.GetFaceColors(Face.Down);
+            IList<FaceColor> back = Cube.GetFaceColors(Face.Back);
 
             string[] colors = new string[54];
 

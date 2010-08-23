@@ -31,7 +31,7 @@ namespace ConsoleApplication1
                 Console.WriteLine("Rubik's Cube console application started");
             }
 
-            Cube cube = new Cube();
+            Cube cube = Cube.MakeCube();
             CubeBoxFormatter writer = new CubeBoxFormatter(cube);
 
             log.Info("Rubik's Cube scrambled");
@@ -52,7 +52,7 @@ namespace ConsoleApplication1
                     Console.WriteLine(writer.GetBox());
                 }
 
-                Console.WriteLine("Commands: [UDLRFBXYZ][#'], scramble, solve, quit");
+                Console.WriteLine("Commands: [UDLRFBXYZ][#'], notation, scramble, solve, quit");
                 Console.Write(">");
 
                 strCommand = Console.ReadLine();
@@ -63,6 +63,10 @@ namespace ConsoleApplication1
                     writer = new CubeBoxFormatter(cube);
 
                     cube.Scramble();
+                }
+                else if (strCommand.ToLower() == @"notation")
+                {
+                    System.Diagnostics.Process.Start("http://www.speedsolving.com/wiki/index.php/Notation");
                 }
                 else if (strCommand.ToLower() == @"scramble")
                 {

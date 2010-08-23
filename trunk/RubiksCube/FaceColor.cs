@@ -5,6 +5,7 @@ using System.Text;
 
 namespace RubiksCube
 {
+    [Serializable()]
     public enum FaceColor
     {
         None,
