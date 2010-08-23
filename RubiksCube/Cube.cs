@@ -2,57 +2,71 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
+using System.Xml.Serialization;
+using System.Runtime.Serialization;
+using System.IO;
+
 using log4net;
 
 namespace RubiksCube
 {
+    [Serializable()]
     public class Cube
     {
         static ILog log = LogManager.GetLogger(typeof(Cube));
 
         public List<Cubicle> Cubicles;
 
+        public static Cube MakeCube()
+        {
+            Cube c = new Cube();
+
+            c.Cubicles = new List<Cubicle>();
+
+            // create the center cubies
+            c.Cubicles.Add(new Cubicle(Face.Down, FaceColor.White));
+            c.Cubicles.Add(new Cubicle(Face.Up, FaceColor.Yellow));
+            c.Cubicles.Add(new Cubicle(Face.Front, FaceColor.Orange));
+            c.Cubicles.Add(new Cubicle(Face.Back, FaceColor.Red));
+            c.Cubicles.Add(new Cubicle(Face.Left, FaceColor.Green));
+            c.Cubicles.Add(new Cubicle(Face.Right, FaceColor.Blue));
+
+            // corner cubies
+            c.Cubicles.Add(new Cubicle(Face.Up, FaceColor.Yellow, Face.Front, FaceColor.Orange, Face.Left, FaceColor.Green));
+            c.Cubicles.Add(new Cubicle(Face.Up, FaceColor.Yellow, Face.Left, FaceColor.Green, Face.Back, FaceColor.Red));
+            c.Cubicles.Add(new Cubicle(Face.Up, FaceColor.Yellow, Face.Back, FaceColor.Red, Face.Right, FaceColor.Blue));
+            c.Cubicles.Add(new Cubicle(Face.Up, FaceColor.Yellow, Face.Right, FaceColor.Blue, Face.Front, FaceColor.Orange));
+            c.Cubicles.Add(new Cubicle(Face.Down, FaceColor.White, Face.Left, FaceColor.Green, Face.Front, FaceColor.Orange));
+            c.Cubicles.Add(new Cubicle(Face.Down, FaceColor.White, Face.Front, FaceColor.Orange, Face.Right, FaceColor.Blue));
+            c.Cubicles.Add(new Cubicle(Face.Down, FaceColor.White, Face.Right, FaceColor.Blue, Face.Back, FaceColor.Red));
+            c.Cubicles.Add(new Cubicle(Face.Down, FaceColor.White, Face.Back, FaceColor.Red, Face.Left, FaceColor.Green));
+
+            // edge cubies
+            c.Cubicles.Add(new Cubicle(Face.Up, FaceColor.Yellow, Face.Front, FaceColor.Orange));
+            c.Cubicles.Add(new Cubicle(Face.Right, FaceColor.Blue, Face.Front, FaceColor.Orange));
+            c.Cubicles.Add(new Cubicle(Face.Down, FaceColor.White, Face.Front, FaceColor.Orange));
+            c.Cubicles.Add(new Cubicle(Face.Left, FaceColor.Green, Face.Front, FaceColor.Orange));
+            c.Cubicles.Add(new Cubicle(Face.Up, FaceColor.Yellow, Face.Back, FaceColor.Red));
+            c.Cubicles.Add(new Cubicle(Face.Left, FaceColor.Green, Face.Back, FaceColor.Red));
+            c.Cubicles.Add(new Cubicle(Face.Down, FaceColor.White, Face.Back, FaceColor.Red));
+            c.Cubicles.Add(new Cubicle(Face.Right, FaceColor.Blue, Face.Back, FaceColor.Red));
+            c.Cubicles.Add(new Cubicle(Face.Left, FaceColor.Green, Face.Up, FaceColor.Yellow));
+            c.Cubicles.Add(new Cubicle(Face.Right, FaceColor.Blue, Face.Up, FaceColor.Yellow));
+            c.Cubicles.Add(new Cubicle(Face.Down, FaceColor.White, Face.Left, FaceColor.Green));
+            c.Cubicles.Add(new Cubicle(Face.Down, FaceColor.White, Face.Right, FaceColor.Blue));
+
+            return c;
+        }
+
         public Cube()
         {
             Cubicles = new List<Cubicle>();
-
-            // create the center cubies
-            Cubicles.Add(new Cubicle(Face.Down, FaceColor.White));
-            Cubicles.Add(new Cubicle(Face.Up, FaceColor.Yellow));
-            Cubicles.Add(new Cubicle(Face.Front, FaceColor.Orange));
-            Cubicles.Add(new Cubicle(Face.Back, FaceColor.Red));
-            Cubicles.Add(new Cubicle(Face.Left, FaceColor.Green));
-            Cubicles.Add(new Cubicle(Face.Right, FaceColor.Blue));
-
-            // corner cubies
-            Cubicles.Add(new Cubicle(Face.Up, FaceColor.Yellow, Face.Front, FaceColor.Orange, Face.Left, FaceColor.Green));
-            Cubicles.Add(new Cubicle(Face.Up, FaceColor.Yellow, Face.Left, FaceColor.Green, Face.Back,  FaceColor.Red));
-            Cubicles.Add(new Cubicle(Face.Up, FaceColor.Yellow, Face.Back, FaceColor.Red, Face.Right, FaceColor.Blue));
-            Cubicles.Add(new Cubicle(Face.Up, FaceColor.Yellow, Face.Right, FaceColor.Blue, Face.Front, FaceColor.Orange));
-            Cubicles.Add(new Cubicle(Face.Down, FaceColor.White, Face.Left, FaceColor.Green, Face.Front, FaceColor.Orange));
-            Cubicles.Add(new Cubicle(Face.Down, FaceColor.White, Face.Front, FaceColor.Orange, Face.Right, FaceColor.Blue));
-            Cubicles.Add(new Cubicle(Face.Down, FaceColor.White, Face.Right, FaceColor.Blue, Face.Back, FaceColor.Red));
-            Cubicles.Add(new Cubicle(Face.Down, FaceColor.White, Face.Back, FaceColor.Red, Face.Left, FaceColor.Green));
-
-            // edge cubies
-            Cubicles.Add(new Cubicle(Face.Up, FaceColor.Yellow, Face.Front, FaceColor.Orange));
-            Cubicles.Add(new Cubicle(Face.Right, FaceColor.Blue, Face.Front, FaceColor.Orange));
-            Cubicles.Add(new Cubicle(Face.Down, FaceColor.White, Face.Front, FaceColor.Orange));
-            Cubicles.Add(new Cubicle(Face.Left, FaceColor.Green, Face.Front, FaceColor.Orange));
-            Cubicles.Add(new Cubicle(Face.Up, FaceColor.Yellow, Face.Back, FaceColor.Red));
-            Cubicles.Add(new Cubicle(Face.Left, FaceColor.Green, Face.Back, FaceColor.Red));
-            Cubicles.Add(new Cubicle(Face.Down, FaceColor.White, Face.Back, FaceColor.Red));
-            Cubicles.Add(new Cubicle(Face.Right, FaceColor.Blue, Face.Back, FaceColor.Red));
-            Cubicles.Add(new Cubicle(Face.Left, FaceColor.Green, Face.Up, FaceColor.Yellow));
-            Cubicles.Add(new Cubicle(Face.Right, FaceColor.Blue, Face.Up, FaceColor.Yellow));
-            Cubicles.Add(new Cubicle(Face.Down, FaceColor.White, Face.Left, FaceColor.Green));
-            Cubicles.Add(new Cubicle(Face.Down, FaceColor.White, Face.Right, FaceColor.Blue));
-
         }
 
-        public List<FaceColor> GetFaceColors(Face f)
+        public IList<FaceColor> GetFaceColors(Face f)
         {
-            List<FaceColor> ret = new List<FaceColor>();
+            IList<FaceColor> ret = new List<FaceColor>();
 
             Face xFace = f;
             Face aFace = Face.None;
@@ -108,17 +122,17 @@ namespace RubiksCube
                     throw new ArgumentException("Invalid cube face");
             }
 
-            ret.Add(Cubicles.Find(i => i.Location.Is(xFace | aFace | bFace)).Colors[xFace]);
-            ret.Add(Cubicles.Find(i => i.Location.Is(xFace | bFace)).Colors[xFace]);
-            ret.Add(Cubicles.Find(i => i.Location.Is(xFace | bFace | cFace)).Colors[xFace]);
+            ret.Add(Cubicles.FirstOrDefault(i => i.Location.Is(xFace | aFace | bFace)).Colors[xFace]);
+            ret.Add(Cubicles.FirstOrDefault(i => i.Location.Is(xFace | bFace)).Colors[xFace]);
+            ret.Add(Cubicles.FirstOrDefault(i => i.Location.Is(xFace | bFace | cFace)).Colors[xFace]);
 
-            ret.Add(Cubicles.Find(i => i.Location.Is(xFace | aFace)).Colors[xFace]);
-            ret.Add(Cubicles.Find(i => i.Location.Is(xFace)).Colors[xFace]);
-            ret.Add(Cubicles.Find(i => i.Location.Is(xFace | cFace)).Colors[xFace]);
+            ret.Add(Cubicles.FirstOrDefault(i => i.Location.Is(xFace | aFace)).Colors[xFace]);
+            ret.Add(Cubicles.FirstOrDefault(i => i.Location.Is(xFace)).Colors[xFace]);
+            ret.Add(Cubicles.FirstOrDefault(i => i.Location.Is(xFace | cFace)).Colors[xFace]);
 
-            ret.Add(Cubicles.Find(i => i.Location.Is(xFace | aFace | dFace)).Colors[xFace]);
-            ret.Add(Cubicles.Find(i => i.Location.Is(xFace | dFace)).Colors[xFace]);
-            ret.Add(Cubicles.Find(i => i.Location.Is(xFace | cFace | dFace)).Colors[xFace]);
+            ret.Add(Cubicles.FirstOrDefault(i => i.Location.Is(xFace | aFace | dFace)).Colors[xFace]);
+            ret.Add(Cubicles.FirstOrDefault(i => i.Location.Is(xFace | dFace)).Colors[xFace]);
+            ret.Add(Cubicles.FirstOrDefault(i => i.Location.Is(xFace | cFace | dFace)).Colors[xFace]);
 
             return ret;
         }
@@ -166,10 +180,10 @@ namespace RubiksCube
                 dFace = bClockwise ? Face.Down : Face.Up;
             }
 
-            Cubicle top = Cubicles.Find(x => x.Location.Is(bFace));
-            Cubicle back = Cubicles.Find(x => x.Location.Is(cFace));
-            Cubicle down = Cubicles.Find(x => x.Location.Is(dFace));
-            Cubicle front = Cubicles.Find(x => x.Location.Is(aFace));
+            Cubicle top = Cubicles.FirstOrDefault(x => x.Location.Is(bFace));
+            Cubicle back = Cubicles.FirstOrDefault(x => x.Location.Is(cFace));
+            Cubicle down = Cubicles.FirstOrDefault(x => x.Location.Is(dFace));
+            Cubicle front = Cubicles.FirstOrDefault(x => x.Location.Is(aFace));
 
             FaceColor topTemp = top.Colors[bFace];
 
@@ -178,10 +192,10 @@ namespace RubiksCube
             down.Colors[dFace] = back.Colors[cFace];
             back.Colors[cFace] = topTemp;
 
-            Cubicle frontTop = Cubicles.Find(x => x.Location.Is(bFace | aFace));
-            Cubicle backTop = Cubicles.Find(x => x.Location.Is(bFace | cFace));
-            Cubicle backBottom = Cubicles.Find(x => x.Location.Is(cFace | dFace));
-            Cubicle frontBottom = Cubicles.Find(x => x.Location.Is(dFace | aFace));
+            Cubicle frontTop = Cubicles.FirstOrDefault(x => x.Location.Is(bFace | aFace));
+            Cubicle backTop = Cubicles.FirstOrDefault(x => x.Location.Is(bFace | cFace));
+            Cubicle backBottom = Cubicles.FirstOrDefault(x => x.Location.Is(cFace | dFace));
+            Cubicle frontBottom = Cubicles.FirstOrDefault(x => x.Location.Is(dFace | aFace));
 
             Cubicle frontTopTemp = new Cubicle(frontTop);
 
@@ -289,15 +303,16 @@ namespace RubiksCube
             log.InfoFormat("({0}) Rotating Face.{1} {2}", strMoveText,
                         f.ToString(), bClockwise ? "clockwise" : "counter-clockwise");
 
-            Cubicle c1 = Cubicles.Find(x => x.Location.Is(xFace | aFace | bFace));
-            Cubicle c2 = Cubicles.Find(x => x.Location.Is(xFace | bFace));
-            Cubicle c3 = Cubicles.Find(x => x.Location.Is(xFace | bFace | cFace));
-            Cubicle c4 = Cubicles.Find(x => x.Location.Is(xFace | aFace));
-            Cubicle c6 = Cubicles.Find(x => x.Location.Is(xFace | cFace));
-            Cubicle c7 = Cubicles.Find(x => x.Location.Is(xFace | aFace | dFace));
-            Cubicle c8 = Cubicles.Find(x => x.Location.Is(xFace | dFace));
-            Cubicle c9 = Cubicles.Find(x => x.Location.Is(xFace | cFace | dFace));
+            Cubicle c1 = Cubicles.FirstOrDefault(x => x.Location.Is(xFace | aFace | bFace));
+            Cubicle c2 = Cubicles.FirstOrDefault(x => x.Location.Is(xFace | bFace));
+            Cubicle c3 = Cubicles.FirstOrDefault(x => x.Location.Is(xFace | bFace | cFace));
+            Cubicle c4 = Cubicles.FirstOrDefault(x => x.Location.Is(xFace | aFace));
+            Cubicle c6 = Cubicles.FirstOrDefault(x => x.Location.Is(xFace | cFace));
+            Cubicle c7 = Cubicles.FirstOrDefault(x => x.Location.Is(xFace | aFace | dFace));
+            Cubicle c8 = Cubicles.FirstOrDefault(x => x.Location.Is(xFace | dFace));
+            Cubicle c9 = Cubicles.FirstOrDefault(x => x.Location.Is(xFace | cFace | dFace));
 
+            // TODO: some of these temps can be removed
             Dictionary<Face, FaceColor> c1Temp = new Dictionary<Face, FaceColor>(c1.Colors);
             Dictionary<Face, FaceColor> c2Temp = new Dictionary<Face, FaceColor>(c2.Colors);
             Dictionary<Face, FaceColor> c3Temp = new Dictionary<Face, FaceColor>(c3.Colors);
