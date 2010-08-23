@@ -2,7 +2,11 @@
 
 = Introduction =
 
-This document briefly explains the notation syntax used by the Rubik's Cube Bot parser.
+This document briefly explains the notation syntax used by the Rubik's Cube Bot parser for turns of the Rubik's Cube.
+
+For more information see: http://www.speedsolving.com/wiki/index.php/Notation
+
+Or you can visit the office WCA Cube Notation (not yet fully supported) here: http://www.worldcubeassociation.org/regulations/#notation
 
 = Details =
 
