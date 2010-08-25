@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Diagnostics;
 using RubiksCube;
 using log4net;
 
-namespace ConsoleApplication1
+namespace CubeConsole
 {
     class Program
     {
@@ -22,13 +23,16 @@ namespace ConsoleApplication1
         {
             log4net.Config.XmlConfigurator.Configure();
 
+            FileVersionInfo info = FileVersionInfo.GetVersionInfo("CubeConsole.exe");
+            string strHeader = string.Format("Starting CubeConsole {0}", info.FileVersion);
+
             if (log.IsInfoEnabled)
             {
-                log.Info("Rubik's Cube console application started");
+                log.Info(strHeader);
             }
             else
             {
-                Console.WriteLine("Rubik's Cube console application started");
+                Console.WriteLine(strHeader);
             }
 
             Cube cube = Cube.MakeCube();
