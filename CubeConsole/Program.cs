@@ -56,7 +56,7 @@ namespace CubeConsole
                     Console.WriteLine(writer.GetBox());
                 }
 
-                Console.WriteLine("Commands: [UDLRFBXYZ][#'], notation, scramble, solve, quit");
+                Console.WriteLine("Commands: [UDLRFBXYZEMS][#'], notation, scramble, solve, quit");
                 Console.Write(">");
 
                 strCommand = Console.ReadLine();
@@ -79,7 +79,7 @@ namespace CubeConsole
                 }
                 else if (strCommand.ToLower() == @"solve")
                 {
-                    cube = new Cube();
+                    cube = Cube.MakeCube();
                     writer = new CubeBoxFormatter(cube);
                 }
                 else if (strCommand.ToLower() != "q" && strCommand.ToLower() != "quit")

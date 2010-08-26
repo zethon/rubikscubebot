@@ -5,44 +5,31 @@ using System.Text;
 
 namespace RubiksCube
 {
-    public enum OpCodes
-    {
-        Null,
-        Up,
-        Down,
-        Left,
-        Right,
-        Front,
-        Back,
-        X,
-        Y,
-        Z
-    }
-
     public class Command
     {
-        public OpCodes OpCode = OpCodes.Null;
+        public Moves Move = Moves.None;
         public bool IsPrime = false;
         public int Count = 1;
 
-        public override string ToString()
-        {
-            if (OpCode == OpCodes.Null)
-            {
-                return string.Empty;
-            }
+        //public override string ToString()
+        //{
+        //    if (Move == Moves.None)
+        //    {
+        //        return string.Empty;
+        //    }
 
-            string strRet = string.Empty;
+        //    string strRet = string.Empty;
 
-            switch (this.OpCode)
-            {
-                case OpCodes.Up:
-                    strRet = "U";
-                break;
+        //    switch (Move)
+        //    {
+        //        case Moves.Up:
+        //            strRet = "U";
+        //        break;
+        //    }
 
+        //    if (Count 
 
-
-            return strRet;
-        }
+        //    return strRet;
+        //}
     }
 }
