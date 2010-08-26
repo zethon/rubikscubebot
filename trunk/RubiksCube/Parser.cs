@@ -65,16 +65,7 @@ namespace RubiksCube
                 {
                     int? i = o as int?;
                     Command cmd = _commands[_index];
-
-                    cmd.Count = (int)o % 4;
-
-                    if (cmd.Count == 3)
-                    {
-                        cmd.IsPrime = !cmd.IsPrime;
-                        cmd.Count = 1;
-                    }
-
-                    _commands[_index] = cmd;
+                    cmd.Count = (int)o;
                 }
             }
         }

@@ -216,7 +216,6 @@ namespace RubiksCube
                     continue;
                 }
 
-                log.DebugFormat("{0} {1}", f.ToString(), bCW);
                 Turn(f, bCW);
             }
         }
@@ -280,9 +279,6 @@ namespace RubiksCube
                 dFace = bClockwise ? Face.Down : Face.Up;
                 strMoveText = "B" + (bClockwise ? string.Empty : "'");
             }
-
-            log.InfoFormat("({0}) Rotating Face.{1} {2}", strMoveText,
-                        f.ToString(), bClockwise ? "clockwise" : "counter-clockwise");
 
             Cubicle c1 = Cubicles.FirstOrDefault(x => x.Location.Is(xFace | aFace | bFace));
             Cubicle c2 = Cubicles.FirstOrDefault(x => x.Location.Is(xFace | bFace));
