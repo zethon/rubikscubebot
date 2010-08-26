@@ -9,27 +9,49 @@ namespace RubiksCube
     {
         public Moves Move = Moves.None;
         public bool IsPrime = false;
-        public int Count = 1;
 
-        //public override string ToString()
-        //{
-        //    if (Move == Moves.None)
-        //    {
-        //        return string.Empty;
-        //    }
+        private int _count = 1;
+        public int Count
+        {
+            get { return _count; }
+            set
+            {
+                _count = value;
+                Normalize();
+            }
+        }
 
-        //    string strRet = string.Empty;
+        public override string ToString()
+        {
+            if (Move == Moves.None)
+            {
+                return string.Empty;
+            }
 
-        //    switch (Move)
-        //    {
-        //        case Moves.Up:
-        //            strRet = "U";
-        //        break;
-        //    }
+            string strRet = Move.ToString().Substring(0,1);
 
-        //    if (Count 
+            if (Count > 1)
+            {
+                strRet += Count.ToString();
+            }
 
-        //    return strRet;
-        //}
+            return strRet;
+        }
+
+        private void Normalize()
+        {
+            _count = (int)_count % 4;
+
+            if (_count == 3)
+            {
+                IsPrime = !IsPrime;
+                _count = 1;
+            }
+
+            if (IsPrime && _count == 2)
+            {
+                IsPrime = false;
+            }
+        }
     }
 }
