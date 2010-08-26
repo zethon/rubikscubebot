@@ -137,12 +137,7 @@ namespace RubiksCube
             return ret;
         }
 
-        public void Rotate(Rotation r)
-        {
-            Rotate(r, true);
-        }
-
-        public void Rotate(Rotation r, bool bClockwise)
+        private void Rotate(Rotation r, bool bClockwise)
         {
             Face aFace = Face.None;
             Face bFace = Face.None;
@@ -151,9 +146,6 @@ namespace RubiksCube
 
             if (r == Rotation.X)
             {
-                Turn(Face.Right, bClockwise);
-                Turn(Face.Left,!bClockwise);
-
                 aFace = Face.Front;
                 bFace = bClockwise ? Face.Up : Face.Down;
                 cFace = Face.Back;
@@ -161,9 +153,6 @@ namespace RubiksCube
             }
             else if (r == Rotation.Y)
             {
-                Turn(Face.Up, bClockwise);
-                Turn(Face.Down, !bClockwise);
-
                 aFace = Face.Front;
                 bFace = bClockwise ? Face.Left : Face.Right;
                 cFace = Face.Back;
@@ -171,9 +160,6 @@ namespace RubiksCube
             }
             else if (r == Rotation.Z)
             {
-                Turn(Face.Front, bClockwise);
-                Turn(Face.Back, !bClockwise);
-
                 aFace = Face.Left;
                 bFace = bClockwise ? Face.Up : Face.Down;
                 cFace = Face.Right;
@@ -235,12 +221,7 @@ namespace RubiksCube
             }
         }
 
-        public void Turn(Face f)
-        {
-            Turn(f, true);
-        }
-
-        public void Turn(Face f, bool bClockwise)
+        private void Turn(Face f, bool bClockwise)
         {
             string strMoveText = string.Empty;
             Face xFace = Face.None;
@@ -349,6 +330,66 @@ namespace RubiksCube
             c9.Colors[xFace] = c3Temp[xFace];
             c9.Colors[dFace] = c3Temp[cFace];
             c9.Colors[cFace] = c3Temp[bFace];
+        }
+
+        public void Move(Moves m, bool bClockwise)
+        {
+            switch (m)
+            {
+                case Moves.Up:
+                    Turn(Face.Up, bClockwise);
+                break;
+
+                case Moves.Down:
+                    Turn(Face.Down, bClockwise);
+                break;
+
+                case Moves.Left:
+                    Turn(Face.Left, bClockwise);
+                break;
+
+                case Moves.Right:
+                    Turn(Face.Right, bClockwise);
+                break;
+
+                case Moves.Front:
+                    Turn(Face.Front, bClockwise);
+                break;
+
+                case Moves.Back:
+                    Turn(Face.Back, bClockwise);
+                break;
+
+                case Moves.x:
+                    Turn(Face.Right, bClockwise);
+                    Turn(Face.Left, !bClockwise);
+                    Rotate(Rotation.X, bClockwise);
+                break;
+
+                case Moves.y:
+                    Turn(Face.Up, bClockwise);
+                    Turn(Face.Down, !bClockwise);
+                    Rotate(Rotation.Y, bClockwise);
+                break;
+
+                case Moves.z:
+                    Turn(Face.Front, bClockwise);
+                    Turn(Face.Back, !bClockwise);
+                    Rotate(Rotation.Z, bClockwise);
+                break;
+
+                case Moves.M:
+                    Rotate(Rotation.X, bClockwise);
+                break;
+
+                case Moves.E:
+                    Rotate(Rotation.Y, !bClockwise);
+                break;
+
+                case Moves.S:
+                    Rotate(Rotation.Z, !bClockwise);
+                break;
+            }
         }
     }
 }

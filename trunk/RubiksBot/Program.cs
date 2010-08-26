@@ -31,6 +31,8 @@ namespace RubiksBot
                 serializer.Serialize(w, c);
                 w.Close();
 
+                //log.Debug(w.ToString());
+
                 StringReader reader = new StringReader(w.ToString());
                 Cube c1 = (Cube)serializer.Deserialize(reader);
 

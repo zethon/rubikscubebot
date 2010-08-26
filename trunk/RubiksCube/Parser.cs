@@ -17,20 +17,23 @@ namespace RubiksCube
             }
         }
 
-        private IDictionary<string, OpCodes> _commandMap;
+        private IDictionary<string, Moves> _commandMap;
 
         public Parser(IList<object> tokens)
         {
-            _commandMap = new Dictionary<string, OpCodes>();
-            _commandMap.Add("U", OpCodes.Up);
-            _commandMap.Add("D", OpCodes.Down);
-            _commandMap.Add("L", OpCodes.Left);
-            _commandMap.Add("R", OpCodes.Right);
-            _commandMap.Add("F", OpCodes.Front);
-            _commandMap.Add("B", OpCodes.Back);
-            _commandMap.Add("X", OpCodes.X);
-            _commandMap.Add("Y", OpCodes.Y);
-            _commandMap.Add("Z", OpCodes.Z);
+            _commandMap = new Dictionary<string, Moves>();
+            _commandMap.Add("U", Moves.Up);
+            _commandMap.Add("D", Moves.Down);
+            _commandMap.Add("L", Moves.Left);
+            _commandMap.Add("R", Moves.Right);
+            _commandMap.Add("F", Moves.Front);
+            _commandMap.Add("B", Moves.Back);
+            _commandMap.Add("X", Moves.x);
+            _commandMap.Add("Y", Moves.y);
+            _commandMap.Add("Z", Moves.z);
+            _commandMap.Add("M", Moves.M);
+            _commandMap.Add("E", Moves.E);
+            _commandMap.Add("S", Moves.S);
 
             _commands = new List<Command>();
             Scan(tokens);
@@ -47,7 +50,7 @@ namespace RubiksCube
                     if (_commandMap.ContainsKey(strTemp))
                     {
                         _index++;
-                        _commands.Add(new Command { OpCode = _commandMap[strTemp] });
+                        _commands.Add(new Command { Move = _commandMap[strTemp] });
                     }
                     else
                     {
