@@ -8,7 +8,18 @@ namespace RubiksCube
     public class Command
     {
         public Moves Move = Moves.None;
-        public bool IsPrime = false;
+
+        private bool _isPrime = false;
+
+        public bool IsPrime
+        {
+            get { return _isPrime; }
+            set
+            {
+                _isPrime = value;
+                Normalize();
+            }
+        }
 
         private int _count = 1;
         public int Count
@@ -35,6 +46,11 @@ namespace RubiksCube
                 strRet += Count.ToString();
             }
 
+            if (IsPrime)
+            {
+                strRet += @"'";
+            }
+
             return strRet;
         }
 
@@ -44,13 +60,13 @@ namespace RubiksCube
 
             if (_count == 3)
             {
-                IsPrime = !IsPrime;
+                _isPrime = !_isPrime;
                 _count = 1;
             }
 
-            if (IsPrime && _count == 2)
+            if (_isPrime && _count == 2)
             {
-                IsPrime = false;
+                _isPrime = false;
             }
         }
     }
