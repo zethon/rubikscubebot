@@ -74,21 +74,80 @@ namespace RubiksCubeTests
             }
         }
 
-        [Ignore]
-        public void TestSerialize()
+        [Test]
+        public void TestSerializeScambledCube()
         {
             Cube c = Cube.MakeCube();
             c.Scramble();
 
             XmlSerializer s = new XmlSerializer(typeof(Cube));
-            StringWriter w = new StringWriter();
-
+            TextWriter w = new StreamWriter(@"test.xml");
+            
             s.Serialize(w, c);
             w.Close();
 
+            FileStream readstream = new FileStream(@"test.xml", FileMode.Open, FileAccess.Read, FileShare.Read);
+            Cube c1 = (Cube)s.Deserialize(readstream);
+            readstream.Close();
+
+            File.Delete(@"test.xml");
+
+            foreach (Face f in Enum.GetValues(typeof(Face)))
+            {
+                if (f == Face.None)
+                    continue;
+
+                IList<FaceColor> orginal = c.GetFaceColors(f);
+                IList<FaceColor> loaded = c1.GetFaceColors(f);
+
+                Assert.AreEqual(orginal, loaded);
+            }
+        }
+
+        [Test]
+        public void TestCommandToString()
+        {
+            Command c = new Command { Move = Moves.Up, Count = 1, IsPrime = false };
+            Assert.AreEqual(c.ToString(), @"U");
+
+            c = new Command { Move = Moves.Right, Count = 2, IsPrime = true };
+            Assert.AreEqual(c.ToString(), @"R2");
+
+            c = new Command { Move = Moves.Left, Count = 1, IsPrime = true };
+            Assert.AreEqual(c.ToString(), @"L'");
+
+            c = new Command { Move = Moves.x, Count = 2, IsPrime = false };
+            Assert.AreEqual(c.ToString(), "x2");
+        }
+
+        [Test]
+        public void TestParser()
+        {
+            Cube c = Cube.MakeCube();
+
+            string strCommand = @"U2L'";
+            c.ExecuteCommand(strCommand);
+
+            IList<FaceColor> set = new List<FaceColor>();
+            set.Add(FaceColor.White);
+            set.Add(FaceColor.Red);
+            set.Add(FaceColor.Red);
+            set.Add(FaceColor.White);
+            set.Add(FaceColor.Orange);
+            set.Add(FaceColor.Orange);
+            set.Add(FaceColor.White);
+            set.Add(FaceColor.Orange);
+            set.Add(FaceColor.Orange);
+            IList<FaceColor> front = c.GetFaceColors(Face.Front);
+            Assert.AreEqual(front, set);
+
+            strCommand = @"x'F2UR'";
+            set = new List<FaceColor>();
+            //set.Add(
 
 
 
+            
         }
     }
 }

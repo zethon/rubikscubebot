@@ -12,7 +12,7 @@ using log4net;
 namespace RubiksCube
 {
     [Serializable()]
-    public class Cube
+    public class Cube : IComparable
     {
         static ILog log = LogManager.GetLogger(typeof(Cube));
 
@@ -392,5 +392,39 @@ namespace RubiksCube
                 break;
             }
         }
+
+        public void ExecuteCommand(string strCommand)
+        {
+            Scanner scanner = null;
+            using (StringReader reader = new StringReader(strCommand))
+            {
+                scanner = new Scanner(reader);
+            }
+
+            Parser parser = new Parser(scanner.Tokens);
+            Generator g = new Generator(parser.Commands);
+            g.Execute(this);
+        }
+
+        #region IComparable
+
+        public int CompareTo(object other)
+        {
+            Cube otherCube = other as Cube;
+
+            if (otherCube == null)
+            {
+                throw new ArgumentException("Incomparable type");
+            }
+
+            if (Cubicles == otherCube.Cubicles)
+            {
+                return 0;
+            }
+
+            return 1;
+        }
+
+        #endregion
     }
 }
