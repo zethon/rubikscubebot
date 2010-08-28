@@ -328,6 +328,11 @@ namespace RubiksCube
             c9.Colors[cFace] = c3Temp[bFace];
         }
 
+        public void Move(Moves m)
+        {
+            Move(m, true);
+        }
+
         public void Move(Moves m, bool bClockwise)
         {
             switch (m)
