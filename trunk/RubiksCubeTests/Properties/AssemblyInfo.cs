@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("RubiksCube")]
-[assembly: AssemblyDescription("Rubik's Cube engine")]
+[assembly: AssemblyTitle("RubiksCubeTests")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("RubiksCube")]
-[assembly: AssemblyCopyright("Copyright © Adalid Claure 2010")]
+[assembly: AssemblyCompany("RiskWatch")]
+[assembly: AssemblyProduct("RubiksCubeTests")]
+[assembly: AssemblyCopyright("Copyright © RiskWatch 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b9ddb72b-e455-4bd9-bf13-dce9111739ea")]
+[assembly: Guid("d8cb6a2a-d0c3-4927-93da-dbdad15339e9")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.1.1")]
-[assembly: AssemblyFileVersion("0.1.1")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

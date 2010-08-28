@@ -5,6 +5,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
+using System.Diagnostics;
 using RubiksCube;
 using log4net;
 
@@ -16,8 +17,31 @@ namespace RubiksBot
 
         static void Main(string[] args)
         {
-            log4net.Config.XmlConfigurator.Configure();
+            try
+            {
+                log4net.Config.XmlConfigurator.Configure();
 
+                FileVersionInfo info = FileVersionInfo.GetVersionInfo("Rubiksbot.exe");
+                string strHeader = string.Format("Starting RubiksBot {0}", info.FileVersion);
+
+                log.Info(strHeader);
+
+                Controller ctrl = new Controller();
+                if (ctrl.Init())
+                {
+                    ctrl.MainLoop();
+                }
+                else
+                {
+                    log.Fatal("Could not initialize Controller object");
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Fatal("Main exception", ex);
+            }
+
+            /*
             try
             {
                 Cube c = Cube.MakeCube();
@@ -44,7 +68,7 @@ namespace RubiksBot
                 log.Fatal(ex);
             }
 
-            Console.ReadLine();
+            Console.ReadLine();*/
         }
     }
 }
