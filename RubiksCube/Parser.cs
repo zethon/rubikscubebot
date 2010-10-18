@@ -28,9 +28,9 @@ namespace RubiksCube
             _commandMap.Add("R", Moves.Right);
             _commandMap.Add("F", Moves.Front);
             _commandMap.Add("B", Moves.Back);
-            _commandMap.Add("X", Moves.x);
-            _commandMap.Add("Y", Moves.y);
-            _commandMap.Add("Z", Moves.z);
+            _commandMap.Add("x", Moves.x);
+            _commandMap.Add("y", Moves.y);
+            _commandMap.Add("z", Moves.z);
             _commandMap.Add("M", Moves.M);
             _commandMap.Add("E", Moves.E);
             _commandMap.Add("S", Moves.S);
@@ -63,7 +63,6 @@ namespace RubiksCube
                 }
                 else if (o is int)
                 {
-                    int? i = o as int?;
                     Command cmd = _commands[_index];
                     cmd.Count = (int)o;
                 }

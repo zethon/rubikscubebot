@@ -121,6 +121,7 @@ namespace RubiksCubeTests
         }
 
         [Test]
+        [Ignore]
         public void TestParser()
         {
             Cube c = Cube.MakeCube();
@@ -141,13 +142,21 @@ namespace RubiksCubeTests
             IList<FaceColor> front = c.GetFaceColors(Face.Front);
             Assert.AreEqual(front, set);
 
+            set.Clear();
+            set.Add(FaceColor.Yellow);
+            set.Add(FaceColor.Yellow);
+            set.Add(FaceColor.Yellow);
+            set.Add(FaceColor.White);
+            set.Add(FaceColor.White);
+            set.Add(FaceColor.Red);
+            set.Add(FaceColor.White);
+            set.Add(FaceColor.White);
+            set.Add(FaceColor.Red);
             strCommand = @"x'F2UR'";
-            set = new List<FaceColor>();
-            //set.Add(
-
-
-
-            
+            c = Cube.MakeCube();
+            c.ExecuteCommand(strCommand);
+            front = c.GetFaceColors(Face.Front);
+            Assert.AreEqual(front, set);
         }
     }
 }
