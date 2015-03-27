@@ -1,0 +1,1 @@
+The Rubik's Cube Bot allows people to solve the Rubik's Cube through an instant messenger. The engine is implemented as a .NET module DLL to allow for easy usability in a variety of projects.
